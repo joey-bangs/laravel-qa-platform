@@ -16,19 +16,16 @@ class Question extends Model
         'title', 'body'
     ];
 
-    /**
-     * Sets title attribute
-     *
-     * This also sets the slug attribute
-     *
-     * @param string $value Title value
-     * @return void
-     **/
     public function setTitleAttribute(string $value): void
     {
         $this->attributes['title'] = $value;
 
         $this->attributes['slug'] = Str::slug($value);
+    }
+
+    public function getUrlAttribute(): string
+    {
+        return route('questions.show', $this->id);
     }
 
     public function user()
