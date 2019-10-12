@@ -28,6 +28,19 @@ class Question extends Model
         return route('questions.show', $this->id);
     }
 
+    public function getStatusAttribute(): string
+    {
+        if ($this->answers > 0) {
+            if ($this->best_answer_id != null) {
+                return "answered-accepted";
+            }
+
+            return "answered";
+        }
+
+        return "unanswered";
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User');
