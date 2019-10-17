@@ -38,16 +38,21 @@
                                     <a href="{{ $question->url }}">{{ $question->title }}</a>
                                 </h3>
                                 <div>
-                                    <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-sm btn-outline-info">
-                                        Edit
-                                    </a>
-                                    <form action="{{ route('questions.destroy', $question->id) }}" class="delete-form" method="POST">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="alert('Delete?')">
-                                            Delete
-                                        </button>
-                                    </form>
+                                    @can('update', $question)
+                                        <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-sm btn-outline-info">
+                                            Edit
+                                        </a>
+                                    @endcan
+
+                                    @can('delete', $question)
+                                        <form action="{{ route('questions.destroy', $question->id) }}" class="delete-form" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" onclick="alert('Delete?')">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    @endcan
                                 </div>
                             </div>
 
