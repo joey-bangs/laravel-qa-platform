@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Parsedown;
 
 class Answer extends Model
 {
@@ -32,5 +33,10 @@ class Answer extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function getBodyHtmlAttribute(): string
+    {
+        return Parsedown::instance()->text($this->body);
     }
 }

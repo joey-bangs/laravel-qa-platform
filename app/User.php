@@ -36,9 +36,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getUrlAttribute()
+    public function getUrlAttribute(): string
     {
         return '#';
+    }
+
+    public function getAvatarAttribute(): string
+    {
+        $email = $this->email;
+        $size = 32;
+
+        return "https://www.gravatar.com/avatar/" . md5(strtolower(trim($email))) . "?s=" . $size;
     }
 
     public function questions()

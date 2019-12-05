@@ -29,7 +29,7 @@
                                         {{ Str::plural('answer', $question->answers_count) }}
                                     </div>
                                     <div class="views">
-                                        {{ $question->views . " " . Str::plural('view', $question->views) }}
+                                        {{ $question->views . " " .  \Illuminate\Support\Str::plural('view', $question->views) }}
                                     </div>
                                 </div>
                                 <div class="media-body">
