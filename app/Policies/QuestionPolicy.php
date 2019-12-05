@@ -13,7 +13,7 @@ class QuestionPolicy
     /**
      * Determine whether the user can view any questions.
      *
-     * @param  \App\User  $user
+     * @param User $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -24,8 +24,8 @@ class QuestionPolicy
     /**
      * Determine whether the user can view the question.
      *
-     * @param  \App\User  $user
-     * @param  \App\Question  $question
+     * @param User $user
+     * @param Question $question
      * @return mixed
      */
     public function view(User $user, Question $question)
@@ -36,7 +36,7 @@ class QuestionPolicy
     /**
      * Determine whether the user can create questions.
      *
-     * @param  \App\User  $user
+     * @param User $user
      * @return mixed
      */
     public function create(User $user)
@@ -47,8 +47,8 @@ class QuestionPolicy
     /**
      * Determine whether the user can update the question.
      *
-     * @param  \App\User  $user
-     * @param  \App\Question  $question
+     * @param User $user
+     * @param Question $question
      * @return mixed
      */
     public function update(User $user, Question $question)
@@ -59,13 +59,13 @@ class QuestionPolicy
     /**
      * Determine whether the user can delete the question.
      *
-     * @param  \App\User  $user
-     * @param  \App\Question  $question
+     * @param User $user
+     * @param Question $question
      * @return mixed
      */
     public function delete(User $user, Question $question)
     {
-        $isAnswered = $question->answers  > 0;
+        $isAnswered = $question->answers_count > 0;
 
         $belongsToUser = $user->id == $question->user_id;
 
@@ -75,8 +75,8 @@ class QuestionPolicy
     /**
      * Determine whether the user can restore the question.
      *
-     * @param  \App\User  $user
-     * @param  \App\Question  $question
+     * @param User $user
+     * @param Question $question
      * @return mixed
      */
     public function restore(User $user, Question $question)
@@ -87,8 +87,8 @@ class QuestionPolicy
     /**
      * Determine whether the user can permanently delete the question.
      *
-     * @param  \App\User  $user
-     * @param  \App\Question  $question
+     * @param User $user
+     * @param Question $question
      * @return mixed
      */
     public function forceDelete(User $user, Question $question)
