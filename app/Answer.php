@@ -12,16 +12,25 @@ class Answer extends Model
      * @var array
      */
     protected $fillable = [
-        'body'
+        'body', 'votes_count', 'user_id'
     ];
 
-    public function user()
+    public static function boot()
     {
-        return $this->belongsTo('App\User');
+        parent::boot();
+
+        static::created(function (Answer $answer) {
+            $answer->question()->increment('answers_count');
+        });
     }
 
     public function question()
     {
         return $this->belongsTo('App\Question');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 }
