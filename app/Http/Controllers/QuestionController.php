@@ -90,7 +90,7 @@ class QuestionController extends Controller
         $question->update($request->validated());
 
         return redirect()
-            ->route('questions.index',)
+            ->route('questions.index')
             ->with('success', 'Your question has been updated.');
     }
 

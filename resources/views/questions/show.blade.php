@@ -61,59 +61,8 @@
             </div>
         </div>
 
-        <div class="row mt-4">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-title">
-                            <h2>
-                                {{ $question->answers_count . " " .  \Illuminate\Support\Str::plural('view', $question->answers_count)  }}
-                            </h2>
-                        </div>
-                        <hr>
-                        @foreach($question->answers as $answer)
-                            <div class="media">
-                                <div class="d-flex flex-column vote-controls">
-                                    <a title="This answer is useful" href="" class="vote-up">
-                                        <i class="fas fa-caret-up fa-3x"></i>
-                                    </a>
-                                    <span class="votes-count">1293</span>
-                                    <a title="This answer is not useful" href=""
-                                       class="vote-down off">
-                                        <i class="fas fa-caret-down fa-3x"></i>
-                                    </a>
-                                    <a title="Click to mark as accepted answer (Click again to undo)"
-                                       href="" class="answer-accepted mt-2">
-                                        <i class="fas fa-check fa-2x"></i>
-                                    </a>
-                                </div>
+        @include('answers._index', ['question' => $question])
 
-                                <div class="media-body">
-                                    {!! $answer->body_html !!}
-                                    <div class="float-right">
-                                        <span class="text-muted">
-                                            Answered {{ $answer->created_at->diffForHumans() }}
-                                        </span>
-
-                                        <div class="media mt-4">
-                                            <a href="{{ $answer->user->url }}" class="pr-2">
-                                                <img src="{{ $answer->user->avatar }}"
-                                                     alt="{{ $answer->user->name . "'s avatar" }}">
-                                            </a>
-                                            <div class="media-body mt-1">
-                                                <a href="{{ $answer->user->url }}">
-                                                    {{ $answer->user->name }}
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include('answers._form')
     </div>
 @endsection
