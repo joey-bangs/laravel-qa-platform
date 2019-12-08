@@ -8,7 +8,8 @@
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
                             <h3>Question</h3>
-                            <a href="{{ route('questions.create') }}" class="btn btn-outline-secondary">
+                            <a href="{{ route('questions.create') }}"
+                               class="btn btn-outline-secondary">
                                 Ask question
                             </a>
                         </div>
@@ -35,7 +36,9 @@
                                 <div class="media-body">
                                     <div class="d-flex justify-content-between">
                                         <h3 class="mt-0">
-                                            <a href="{{ $question->url }}">{{ $question->title }}</a>
+                                            <a href="{{ $question->url }}">
+                                                {{ $question->title }}
+                                            </a>
                                         </h3>
                                         <div>
                                             @can('update', $question)
@@ -50,7 +53,8 @@
                                                       class="delete-form" method="POST">
                                                     @method('DELETE')
                                                     @csrf
-                                                    <button type="submit" class="btn btn-sm btn-outline-danger"
+                                                    <button type="submit"
+                                                            class="btn btn-sm btn-outline-danger"
                                                             onclick="alert('Delete?')">
                                                         Delete
                                                     </button>
