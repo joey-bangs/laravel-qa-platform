@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Answer;
 use App\Question;
+use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -68,10 +69,17 @@ class AnswerController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Answer $answer
+     * @param Question $question
      * @return Response
+     * @throws AuthorizationException
+     * @throws Exception
      */
-    public function destroy(Answer $answer)
+    public function destroy(Question $question, Answer $answer)
     {
-        //
+        $this->authorize('delete', $answer);
+
+        $answer->delete();
+
+        return back()->with('success', 'Your answer has been removed.');
     }
 }
