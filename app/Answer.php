@@ -43,4 +43,9 @@ class Answer extends Model
     {
         return Parsedown::instance()->text($this->body);
     }
+
+    public function getStatusAttribute(): string
+    {
+        return $this->id === (int)$this->question->best_answer_id ? 'answer-accepted' : '';
+    }
 }

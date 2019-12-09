@@ -24,7 +24,7 @@
                                 <i class="fas fa-caret-down fa-3x"></i>
                             </a>
                             <a title="Click to mark as accepted answer (Click again to undo)"
-                               href="" class="answer-accepted mt-2">
+                               href="" class="{{  $answer->status }} mt-2">
                                 <i class="fas fa-check fa-2x"></i>
                             </a>
                         </div>
