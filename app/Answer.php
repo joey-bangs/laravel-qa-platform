@@ -44,8 +44,17 @@ class Answer extends Model
         return Parsedown::instance()->text($this->body);
     }
 
+    public function getIsBestAttribute(): bool {
+        return $this->isBest();
+    }
+
     public function getStatusAttribute(): string
     {
-        return $this->id === (int)$this->question->best_answer_id ? 'answer-accepted' : '';
+        return $this->isBest() ? 'answer-accepted' : '';
     }
+
+    private function isBest(): bool {
+        return $this->id === (int)$this->question->best_answer_id;
+    }
+
 }
