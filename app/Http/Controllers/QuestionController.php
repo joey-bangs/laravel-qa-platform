@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreQuestion;
 use App\Question;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Response;
 
 class QuestionController extends Controller
@@ -68,6 +69,7 @@ class QuestionController extends Controller
      *
      * @param Question $question
      * @return Response
+     * @throws AuthorizationException
      */
     public function edit(Question $question)
     {
@@ -82,6 +84,7 @@ class QuestionController extends Controller
      * @param StoreQuestion $request
      * @param Question $question
      * @return Response
+     * @throws AuthorizationException
      */
     public function update(StoreQuestion $request, Question $question)
     {
@@ -99,6 +102,7 @@ class QuestionController extends Controller
      *
      * @param Question $question
      * @return Response
+     * @throws AuthorizationException
      */
     public function destroy(Question $question)
     {
@@ -109,5 +113,19 @@ class QuestionController extends Controller
         return redirect()
             ->route('questions.index')
             ->with('success', 'Your question has been deleted.');
+    }
+
+
+    /**
+     * Toggle favouring question.
+     *
+     * @param Question $question
+     * @return Response
+     */
+    public function toggleFavourite(Question $question)
+    {
+        $question->toggleFavourite();
+
+        return back();
     }
 }

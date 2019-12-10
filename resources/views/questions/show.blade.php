@@ -29,10 +29,21 @@
                                     <i class="fas fa-caret-down fa-3x"></i>
                                 </a>
                                 <a title="Click to mark as favourite question (Click again to undo)"
-                                   href="" class="favourite mt-2">
+
+                                   class="favourite @guest {{ 'off' }} @else {{ $question->isFavoured ? 'favoured' : '' }} @endguest mt-2"
+                                   onclick="event.preventDefault(); document.getElementById('favourite-question-{{ $question->id }}').submit();">
                                     <i class="fas fa-star fa-2x"></i>
-                                    <span class="favourites-count">123</span>
+                                    <span class="favourites-count">
+                                        {{ $question->favourites->count() }}
+                                    </span>
                                 </a>
+                                <form id="favourite-question-{{ $question->id }}"
+                                      action="{{ route('questions.toggleFavourite', $question->id) }}"
+                                      method="post"
+                                      style="display:none;">
+                                    @csrf
+                                    @method('PATCH')
+                                </form>
                             </div>
 
                             <div class="media-body">

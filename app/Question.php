@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Parsedown;
 
@@ -47,11 +48,19 @@ class Question extends Model
         return Parsedown::instance()->text($this->body);
     }
 
-    public function acceptBestAnswer(Answer $answer)
+    public function getIsFavouredAttribute()
     {
-        $this->best_answer_id = $answer->id;
+        return $this->isFavoured();
+    }
 
-        $this->save();
+    private function isFavoured()
+    {
+        return $this->favourites()->where('user_id', Auth::id())->count() > 0;
+    }
+
+    public function favourites()
+    {
+        return $this->belongsToMany('App\User', 'favourites')->withTimestamps();
     }
 
     public function user()
@@ -63,4 +72,21 @@ class Question extends Model
     {
         return $this->hasMany('App\Answer');
     }
+
+    public function acceptBestAnswer(Answer $answer)
+    {
+        $this->best_answer_id = $answer->id;
+
+        $this->save();
+    }
+
+    public function toggleFavourite()
+    {
+        if ($this->isFavoured()) {
+            $this->favourites()->detach(Auth::id());
+        } else {
+            $this->favourites()->attach(Auth::id());
+        }
+    }
+
 }

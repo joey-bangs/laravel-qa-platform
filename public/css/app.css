@@ -16560,8 +16560,8 @@ form.delete-form {
   color: #adb5bd;
 }
 
-.vote-controls a.favourite.favourited,
-.vote-controls a.favourite.favourited:hover {
+.vote-controls a.favourite.favoured,
+.vote-controls a.favourite.favoured:hover {
   color: #ffed4a;
 }
 

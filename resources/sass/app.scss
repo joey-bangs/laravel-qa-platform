@@ -80,7 +80,7 @@ form.delete-form {
     }
 
     &.favourite {
-      &.favourited, &.favourited:hover {
+      &.favoured, &.favoured:hover {
         color: $warning;
       }
     }
