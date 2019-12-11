@@ -15,14 +15,37 @@
                 @foreach($question->answers as $answer)
                     <div class="media">
                         <div class="d-flex flex-column vote-controls">
-                            <a title="This answer is useful" href="" class="vote-up">
+                            <a title="This answer is useful"
+                               class="upvote @guest {{ 'off' }} @endguest"
+                               onclick="event.preventDefault(); document.getElementById('upvote-answer-{{ $answer->id }}').submit();"
+                            >
                                 <i class="fas fa-caret-up fa-3x"></i>
                             </a>
+                            <form id="upvote-answer-{{ $answer->id }}"
+                                  action="{{ route('vote.answer', $answer->id) }}"
+                                  method="post"
+                                  style="display:none;">
+                                @csrf
+                                @method('PATCH')
+                                <input type="number" name="vote" value="1" hidden>
+                            </form>
+
                             <span class="votes-count">{{ $answer->votes_count }}</span>
-                            <a title="This answer is not useful" href=""
-                               class="vote-down off">
+
+                            <a title="This answer is not useful"
+                               class="downvote @guest {{ 'off' }} @endguest"
+                               onclick="event.preventDefault(); document.getElementById('downvote-answer-{{ $answer->id }}').submit();"
+                            >
                                 <i class="fas fa-caret-down fa-3x"></i>
                             </a>
+                            <form id="downvote-answer-{{ $answer->id }}"
+                                  action="{{ route('vote.answer', $answer->id) }}"
+                                  method="post"
+                                  style="display:none;">
+                                @csrf
+                                @method('PATCH')
+                                <input type="number" name="vote" value="-1" hidden>
+                            </form>
 
                             @can('accept', $answer)
                                 <a title="Click to mark as accepted answer (Click again to undo)"

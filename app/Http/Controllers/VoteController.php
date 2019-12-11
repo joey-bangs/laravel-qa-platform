@@ -26,4 +26,16 @@ class VoteController extends Controller
 
         return back();
     }
+
+    /**
+     * @param Request $request
+     * @param Answer $answer
+     * @return RedirectResponse
+     */
+    public function voteAnswer(Request $request, Answer $answer)
+    {
+        Auth::user()->voteAnswer($answer, $request->vote);
+
+        return back();
+    }
 }

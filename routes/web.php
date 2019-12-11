@@ -32,5 +32,5 @@ Route::resource('questions.answers', 'AnswerController')->except(['index', 'crea
 
 Route::post('answers/{answer}/accept', 'AcceptAnswerController')->name('answers.accept');
 
-Route::patch('vote/{question}', 'VoteController@voteQuestion')->name('vote.question');
-
+Route::patch('vote-for-question/{question}', 'VoteController@voteQuestion')->name('vote.question');
+Route::patch('vote-for-answer/{answer}', 'VoteController@voteAnswer')->name('vote.answer');
