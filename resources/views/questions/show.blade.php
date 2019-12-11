@@ -20,16 +20,37 @@
 
                         <div class="media">
                             <div class="d-flex flex-column vote-controls">
-                                <a title="This question is useful" href="" class="vote-up">
+                                <a title="This question is useful"
+                                   class="upvote @guest {{ 'off' }} @endguest"
+                                   onclick="event.preventDefault(); document.getElementById('upvote-question-{{ $question->id }}').submit();"
+                                >
                                     <i class="fas fa-caret-up fa-3x"></i>
                                 </a>
-                                <span class="votes-count">1293</span>
-                                <a title="This question is not useful" href=""
-                                   class="vote-down off">
+                                <form id="upvote-question-{{ $question->id }}"
+                                      action="{{ route('vote.question', $question->id) }}"
+                                      method="post"
+                                      style="display:none;">
+                                    @csrf
+                                    @method('PATCH')
+                                    <input type="number" name="vote" value="1" hidden>
+                                </form>
+                                <span class="votes-count">{{ $question->votes_count }}</span>
+                                <a title="This question is not useful"
+                                   class="downvote @guest {{ 'off' }} @endguest"
+                                   onclick="event.preventDefault(); document.getElementById('downvote-question-{{ $question->id }}').submit();"
+                                >
                                     <i class="fas fa-caret-down fa-3x"></i>
                                 </a>
-                                <a title="Click to mark as favourite question (Click again to undo)"
+                                <form id="downvote-question-{{ $question->id }}"
+                                      action="{{ route('vote.question', $question->id) }}"
+                                      method="post"
+                                      style="display:none;">
+                                    @csrf
+                                    @method('PATCH')
+                                    <input type="number" name="vote" value="-1" hidden>
+                                </form>
 
+                                <a title="Click to mark as favourite question (Click again to undo)"
                                    class="favourite @guest {{ 'off' }} @else {{ $question->isFavoured ? 'favoured' : '' }} @endguest mt-2"
                                    onclick="event.preventDefault(); document.getElementById('favourite-question-{{ $question->id }}').submit();">
                                     <i class="fas fa-star fa-2x"></i>

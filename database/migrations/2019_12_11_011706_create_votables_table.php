@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFavouritesTable extends Migration
+class CreateVotablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateFavouritesTable extends Migration
      */
     public function up()
     {
-        Schema::create('favourites', function (Blueprint $table) {
+        Schema::create('votables', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('question_id');
+            $table->unsignedBigInteger('votable_id');
+            $table->string('votable_type');
+            $table->tinyInteger('vote')->comment('-1: downvote, 1: upvote, 0: novote');
 
-            $table->unique(['user_id', 'question_id']);
+            $table->unique(['user_id', 'votable_id', 'votable_type']);
 
             $table->timestamps();
         });
@@ -31,6 +33,6 @@ class CreateFavouritesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('favourites');
+        Schema::dropIfExists('votables');
     }
 }

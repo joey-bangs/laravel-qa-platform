@@ -39,22 +39,28 @@ class Answer extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function votes()
+    {
+        return $this->morphToMany('App\User', 'votable')->withTimestamps();
+    }
+
     public function getBodyHtmlAttribute(): string
     {
         return Parsedown::instance()->text($this->body);
     }
 
-    public function getIsBestAttribute(): bool {
+    public function getIsBestAttribute(): bool
+    {
         return $this->isBest();
+    }
+
+    private function isBest(): bool
+    {
+        return $this->id === (int)$this->question->best_answer_id;
     }
 
     public function getStatusAttribute(): string
     {
         return $this->isBest() ? 'answer-accepted' : '';
     }
-
-    private function isBest(): bool {
-        return $this->id === (int)$this->question->best_answer_id;
-    }
-
 }

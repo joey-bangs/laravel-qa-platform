@@ -15,7 +15,7 @@ class Question extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'body'
+        'title', 'body', 'votes_count'
     ];
 
     public function setTitleAttribute(string $value): void
@@ -71,6 +71,11 @@ class Question extends Model
     public function answers()
     {
         return $this->hasMany('App\Answer');
+    }
+
+    public function votes()
+    {
+        return $this->morphToMany('App\User', 'votable')->withTimestamps();
     }
 
     public function acceptBestAnswer(Answer $answer)
