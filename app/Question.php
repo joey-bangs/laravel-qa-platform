@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\Votable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -9,6 +10,7 @@ use Parsedown;
 
 class Question extends Model
 {
+    use Votable;
     /**
      * The attributes that are mass assignable.
      *
@@ -63,19 +65,9 @@ class Question extends Model
         return $this->belongsToMany('App\User', 'favourites')->withTimestamps();
     }
 
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
-
     public function answers()
     {
         return $this->hasMany('App\Answer');
-    }
-
-    public function votes()
-    {
-        return $this->morphToMany('App\User', 'votable')->withTimestamps();
     }
 
     public function acceptBestAnswer(Answer $answer)

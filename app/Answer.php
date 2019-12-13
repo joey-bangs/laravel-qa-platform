@@ -2,11 +2,13 @@
 
 namespace App;
 
+use App\Traits\Votable;
 use Illuminate\Database\Eloquent\Model;
 use Parsedown;
 
 class Answer extends Model
 {
+    use Votable;
     /**
      * The attributes that are mass assignable.
      *
@@ -32,16 +34,6 @@ class Answer extends Model
     public function question()
     {
         return $this->belongsTo('App\Question');
-    }
-
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
-
-    public function votes()
-    {
-        return $this->morphToMany('App\User', 'votable')->withTimestamps();
     }
 
     public function getBodyHtmlAttribute(): string

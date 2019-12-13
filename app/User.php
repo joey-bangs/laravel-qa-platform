@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -64,47 +66,42 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Question', 'favourites')->withTimestamps();
     }
 
+    public function voteQuestions()
+    {
+        return $this->morphedByMany('App\Question', 'votable')->withTimestamps();
+    }
+
+    public function voteAnswers()
+    {
+        return $this->morphedByMany('App\Answer', 'votable')->withTimestamps();
+    }
+
     public function voteQuestion(Question $question, int $vote)
     {
         $voteQuestion = $this->voteQuestions();
 
-        if ($voteQuestion->where('votable_id', $question->id)->exists()) {
-            $voteQuestion->updateExistingPivot($question, ['vote' => $vote]);
-        } else {
-            $voteQuestion->attach($question, ['vote' => $vote]);
-        }
-
-        $question->load('votes');
-
-        $question->update([
-            'votes_count' => (int)$question->votes()->pluck('vote')->sum()
-        ]);
-    }
-
-    public function voteQuestions()
-    {
-        return $this->morphedByMany('App\Question', 'votable')->withTimestamps();
+        $this->vote($voteQuestion, $question, $vote);
     }
 
     public function voteAnswer(Answer $answer, int $vote)
     {
         $voteAnswer = $this->voteAnswers();
 
-        if ($voteAnswer->where('votable_id', $answer->id)->exists()) {
-            $voteAnswer->updateExistingPivot($answer, ['vote' => $vote]);
-        } else {
-            $voteAnswer->attach($answer, ['vote' => $vote]);
-        }
-
-        $answer->load('votes');
-
-        $answer->update([
-            'votes_count' => (int)$answer->votes()->pluck('vote')->sum()
-        ]);
+        $this->vote($voteAnswer, $answer, $vote);
     }
 
-    public function voteAnswers()
+    private function vote(MorphToMany $relationship, Model $model, int $vote)
     {
-        return $this->morphedByMany('App\Answer', 'votable')->withTimestamps();
+        if ($relationship->where('votable_id', $model->id)->exists()) {
+            $relationship->updateExistingPivot($model, ['vote' => $vote]);
+        } else {
+            $relationship->attach($model, ['vote' => $vote]);
+        }
+
+        $model->load('votes');
+
+        $model->update([
+            'votes_count' => (int)$model->votes()->pluck('vote')->sum()
+        ]);
     }
 }
