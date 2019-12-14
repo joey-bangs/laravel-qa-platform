@@ -77,7 +77,7 @@ class Question extends Model
 
     public function answers()
     {
-        return $this->hasMany('App\Answer');
+        return $this->hasMany('App\Answer')->orderBy('votes_count', 'DESC');
     }
 
     public function acceptBestAnswer(Answer $answer)
