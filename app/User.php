@@ -66,28 +66,16 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Question', 'favourites')->withTimestamps();
     }
 
+    public function voteQuestion(Question $question, int $vote)
+    {
+        $vote_question = $this->voteQuestions();
+
+        $this->vote($vote_question, $question, $vote);
+    }
+
     public function voteQuestions()
     {
         return $this->morphedByMany('App\Question', 'votable')->withTimestamps();
-    }
-
-    public function voteAnswers()
-    {
-        return $this->morphedByMany('App\Answer', 'votable')->withTimestamps();
-    }
-
-    public function voteQuestion(Question $question, int $vote)
-    {
-        $voteQuestion = $this->voteQuestions();
-
-        $this->vote($voteQuestion, $question, $vote);
-    }
-
-    public function voteAnswer(Answer $answer, int $vote)
-    {
-        $voteAnswer = $this->voteAnswers();
-
-        $this->vote($voteAnswer, $answer, $vote);
     }
 
     private function vote(MorphToMany $relationship, Model $model, int $vote)
@@ -103,5 +91,17 @@ class User extends Authenticatable
         $model->update([
             'votes_count' => (int)$model->votes()->pluck('vote')->sum()
         ]);
+    }
+
+    public function voteAnswer(Answer $answer, int $vote)
+    {
+        $vote_answer = $this->voteAnswers();
+
+        $this->vote($vote_answer, $answer, $vote);
+    }
+
+    public function voteAnswers()
+    {
+        return $this->morphedByMany('App\Answer', 'votable')->withTimestamps();
     }
 }

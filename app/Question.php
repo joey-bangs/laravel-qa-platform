@@ -47,7 +47,17 @@ class Question extends Model
 
     public function getBodyHtmlAttribute(): string
     {
+        return clean($this->bodyHtml());
+    }
+
+    private function bodyHtml(): string
+    {
         return Parsedown::instance()->text($this->body);
+    }
+
+    public function getExcerptAttribute(): string
+    {
+        return Str::limit(strip_tags(clean($this->bodyHtml())), 250);
     }
 
     public function getIsFavouredAttribute()

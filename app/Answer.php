@@ -4,7 +4,9 @@ namespace App;
 
 use App\Traits\Votable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Parsedown;
+use Purifier;
 
 class Answer extends Model
 {
@@ -38,6 +40,11 @@ class Answer extends Model
 
     public function getBodyHtmlAttribute(): string
     {
+        return clean($this->bodyHtml());
+    }
+
+    private function bodyHtml(): string
+    {
         return Parsedown::instance()->text($this->body);
     }
 
@@ -55,4 +62,6 @@ class Answer extends Model
     {
         return $this->isBest() ? 'answer-accepted' : '';
     }
+
+
 }

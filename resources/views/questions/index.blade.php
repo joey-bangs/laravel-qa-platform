@@ -71,7 +71,7 @@
                                             {{ $question->created_at->diffForHumans() }}
                                         </small>
                                     </p>
-                                    {{ \Illuminate\Support\Str::limit($question->body, 250) }}
+                                    {{ $question->excerpt }}
                                 </div>
                             </div>
                             <hr>
