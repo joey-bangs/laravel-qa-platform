@@ -4,7 +4,6 @@ namespace App;
 
 use App\Traits\Votable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 use Parsedown;
 use Purifier;
 
@@ -18,6 +17,15 @@ class Answer extends Model
      */
     protected $fillable = [
         'body', 'votes_count', 'user_id'
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'created_date',
     ];
 
     public static function boot()
@@ -46,6 +54,11 @@ class Answer extends Model
     private function bodyHtml(): string
     {
         return Parsedown::instance()->text($this->body);
+    }
+
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
     }
 
     public function getIsBestAttribute(): bool

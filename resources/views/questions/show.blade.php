@@ -26,7 +26,7 @@
                             <div class="media-body">
                                 {!! $question->body_html !!}
                                 <div class="float-right">
-                                    @include('shared._author', ['model' => $question, 'text' => 'Asked'])
+                                    <user-info :model="{{  $question }}" text="Asked"></user-info>
                                 </div>
                             </div>
                         </div>

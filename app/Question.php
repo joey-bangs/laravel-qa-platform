@@ -20,6 +20,15 @@ class Question extends Model
         'title', 'body', 'votes_count'
     ];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'created_date',
+    ];
+
     public function setTitleAttribute(string $value): void
     {
         $this->attributes['title'] = $value;
@@ -53,6 +62,11 @@ class Question extends Model
     private function bodyHtml(): string
     {
         return Parsedown::instance()->text($this->body);
+    }
+
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
     }
 
     public function getExcerptAttribute(): string
