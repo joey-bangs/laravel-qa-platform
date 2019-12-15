@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreQuestion;
 use App\Question;
+use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class QuestionController extends Controller
 {
@@ -17,7 +22,7 @@ class QuestionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return Factory|Response|View
      */
     public function index()
     {
@@ -29,7 +34,7 @@ class QuestionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return Factory|Response|View
      */
     public function create()
     {
@@ -40,7 +45,7 @@ class QuestionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreQuestion $request
-     * @return Response
+     * @return RedirectResponse|Response
      */
     public function store(StoreQuestion $request)
     {
@@ -55,7 +60,7 @@ class QuestionController extends Controller
      * Display the specified resource.
      *
      * @param Question $question
-     * @return Response
+     * @return Factory|Response|View
      */
     public function show(Question $question)
     {
@@ -68,7 +73,7 @@ class QuestionController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Question $question
-     * @return Response
+     * @return Factory|Response|View
      * @throws AuthorizationException
      */
     public function edit(Question $question)
@@ -83,7 +88,7 @@ class QuestionController extends Controller
      *
      * @param StoreQuestion $request
      * @param Question $question
-     * @return Response
+     * @return RedirectResponse|Response
      * @throws AuthorizationException
      */
     public function update(StoreQuestion $request, Question $question)
@@ -101,8 +106,9 @@ class QuestionController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Question $question
-     * @return Response
+     * @return RedirectResponse|Response
      * @throws AuthorizationException
+     * @throws Exception
      */
     public function destroy(Question $question)
     {
@@ -120,11 +126,15 @@ class QuestionController extends Controller
      * Toggle favouring question.
      *
      * @param Question $question
-     * @return Response
+     * @return JsonResponse|RedirectResponse|Response
      */
     public function toggleFavourite(Question $question)
     {
         $question->toggleFavourite();
+
+        if (request()->wantsJson()) {
+            return response()->json(['question' => $question]);
+        }
 
         return back();
     }

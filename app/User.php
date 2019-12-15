@@ -26,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $appends = [
-        'avatar', 'url',
+        'avatar', 'url', 'is_logged_in'
     ];
 
     /**
@@ -50,6 +50,11 @@ class User extends Authenticatable
     public function getUrlAttribute(): string
     {
         return '#';
+    }
+
+    public function getIsLoggedInAttribute(): bool
+    {
+        return auth()->check();
     }
 
     public function getAvatarAttribute(): string

@@ -26,7 +26,7 @@ class Question extends Model
      * @var array
      */
     protected $appends = [
-        'created_date',
+        'created_date', 'is_favoured', 'favourites_count'
     ];
 
     public function setTitleAttribute(string $value): void
@@ -74,12 +74,12 @@ class Question extends Model
         return Str::limit(strip_tags(clean($this->bodyHtml())), 250);
     }
 
-    public function getIsFavouredAttribute()
+    public function getIsFavouredAttribute(): bool
     {
         return $this->isFavoured();
     }
 
-    private function isFavoured()
+    private function isFavoured(): bool
     {
         return $this->favourites()->where('user_id', Auth::id())->count() > 0;
     }
@@ -87,6 +87,11 @@ class Question extends Model
     public function favourites()
     {
         return $this->belongsToMany('App\User', 'favourites')->withTimestamps();
+    }
+
+    public function getFavouritesCountAttribute(): int
+    {
+        return $this->favourites()->count();
     }
 
     public function answers()
