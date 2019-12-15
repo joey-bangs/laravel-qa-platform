@@ -25,10 +25,7 @@
             },
             updateAnswer: async function () {
                 try {
-                    const response = await axios.patch(
-                        `/questions/${this.slimAnswer.questionId}/answers/${this.slimAnswer.id}`,
-                        {body: this.bodyFormValue}
-                    );
+                    const response = await axios.patch(this.endpoint, {body: this.bodyFormValue});
 
                     const answer = response.data.answer;
 
@@ -52,9 +49,25 @@
             cancelUpdateAnswer: function () {
                 this.bodyFormValue = this.slimAnswer.body;
                 this.isEditing = false;
+            },
+            deleteAnswer: async function () {
+                if (!confirm('Are you sure?')) {
+                    return;
+                }
+
+                try {
+                    const response = await axios.delete(this.endpoint);
+
+                    $(this.$el).fadeOut(500, () => alert(response.data.message));
+                } catch (error) {
+                    alert(error.response.data.message);
+                }
             }
         },
         computed: {
+            endpoint: function () {
+                return `/questions/${this.slimAnswer.questionId}/answers/${this.slimAnswer.id}`;
+            },
             isFieldValid: function () {
                 return this.bodyFormValue.trim().length > 0;
             },

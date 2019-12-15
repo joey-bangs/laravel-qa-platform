@@ -1893,7 +1893,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios.patch("/questions/".concat(this.slimAnswer.questionId, "/answers/").concat(this.slimAnswer.id), {
+                return axios.patch(this.endpoint, {
                   body: this.bodyFormValue
                 });
 
@@ -1935,9 +1935,60 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     cancelUpdateAnswer: function cancelUpdateAnswer() {
       this.bodyFormValue = this.slimAnswer.body;
       this.isEditing = false;
-    }
+    },
+    deleteAnswer: function () {
+      var _deleteAnswer = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (confirm('Are you sure?')) {
+                  _context2.next = 2;
+                  break;
+                }
+
+                return _context2.abrupt("return");
+
+              case 2:
+                _context2.prev = 2;
+                _context2.next = 5;
+                return axios["delete"](this.endpoint);
+
+              case 5:
+                response = _context2.sent;
+                $(this.$el).fadeOut(500, function () {
+                  return alert(response.data.message);
+                });
+                _context2.next = 12;
+                break;
+
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](2);
+                alert(_context2.t0.response.data.message);
+
+              case 12:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[2, 9]]);
+      }));
+
+      function deleteAnswer() {
+        return _deleteAnswer.apply(this, arguments);
+      }
+
+      return deleteAnswer;
+    }()
   },
   computed: {
+    endpoint: function endpoint() {
+      return "/questions/".concat(this.slimAnswer.questionId, "/answers/").concat(this.slimAnswer.id);
+    },
     isFieldValid: function isFieldValid() {
       return this.bodyFormValue.trim().length > 0;
     },

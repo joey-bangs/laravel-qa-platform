@@ -79,7 +79,7 @@ class AnswerController extends Controller
      *
      * @param Answer $answer
      * @param Question $question
-     * @return Response
+     * @return JsonResponse|RedirectResponse|Response
      * @throws AuthorizationException
      * @throws Exception
      */
@@ -88,6 +88,12 @@ class AnswerController extends Controller
         $this->authorize('delete', $answer);
 
         $answer->delete();
+
+        if (request()->wantsJson()) {
+            return response()->json([
+                'message' => 'Your answer has been removed.'
+            ]);
+        }
 
         return back()->with('success', 'Your answer has been removed.');
     }
