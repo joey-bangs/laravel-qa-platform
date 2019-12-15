@@ -39,11 +39,19 @@
 
                     this.isEditing = false;
 
-                    alert('Successfully edited!');
+                    this.$toast.success(
+                        response.data.message,
+                        "Success",
+                        {timeout: 3000}
+                    )
                 } catch (error) {
                     this.bodyFormValue = this.slimAnswer.body;
 
-                    alert(error.response.data.message);
+                    this.$toast.error(
+                        error.response.data.message,
+                        "Error",
+                        {timeout: 3000}
+                    );
                 }
             },
             cancelUpdateAnswer: function () {
@@ -51,17 +59,50 @@
                 this.isEditing = false;
             },
             deleteAnswer: async function () {
-                if (!confirm('Are you sure?')) {
-                    return;
-                }
+                this.$toast.question("Are you sure about that?", "Confirm", {
+                    timeout: 20000,
+                    close: false,
+                    overlay: true,
+                    displayMode: "once",
+                    id: "question",
+                    zindex: 999,
+                    position: "center",
+                    buttons: [
+                        ['<button><b>YES</b></button>', async (instance, toast) => {
+                            try {
+                                const response = await axios.delete(this.endpoint);
 
-                try {
-                    const response = await axios.delete(this.endpoint);
+                                $(this.$el).fadeOut(500,
+                                    () => this.$toast.success(
+                                        response.data.message,
+                                        "Success",
+                                        {timeout: 3000}
+                                    )
+                                );
+                            } catch (error) {
+                                this.$toast.error(
+                                    error.response.data.message,
+                                    "Error",
+                                    {timeout: 3000}
+                                );
+                            }
 
-                    $(this.$el).fadeOut(500, () => alert(response.data.message));
-                } catch (error) {
-                    alert(error.response.data.message);
-                }
+                            instance.hide({transitionOut: "fadeOut"}, toast, "button");
+
+                        }, true],
+                        ['<button>NO</button>', function (instance, toast) {
+
+                            instance.hide({transitionOut: "fadeOut"}, toast, "button");
+
+                        }],
+                    ],
+                    onClosing: function (instance, toast, closedBy) {
+                        console.info("Closing | closedBy: " + closedBy);
+                    },
+                    onClosed: function (instance, toast, closedBy) {
+                        console.info("Closed | closedBy: " + closedBy);
+                    }
+                });
             }
         },
         computed: {
