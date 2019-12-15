@@ -5,7 +5,6 @@ namespace App;
 use App\Traits\Votable;
 use Illuminate\Database\Eloquent\Model;
 use Parsedown;
-use Purifier;
 
 class Answer extends Model
 {
@@ -25,7 +24,7 @@ class Answer extends Model
      * @var array
      */
     protected $appends = [
-        'created_date',
+        'created_date', 'body_html'
     ];
 
     public static function boot()
@@ -68,13 +67,11 @@ class Answer extends Model
 
     private function isBest(): bool
     {
-        return $this->id === (int)$this->question->best_answer_id;
+        return $this->id === (int) $this->question->best_answer_id;
     }
 
     public function getStatusAttribute(): string
     {
         return $this->isBest() ? 'answer-accepted' : '';
     }
-
-
 }

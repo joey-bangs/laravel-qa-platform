@@ -19,23 +19,28 @@
 <script>
     export default {
         name: "UserInfo",
-        props: ['text', 'model'],
+        props: {
+            text: {
+                type: String,
+                required: true
+            },
+            model: {
+                type: Object,
+                required: true
+            }
+        },
         data: function () {
             return {
                 user: this.model.user
             }
         },
         computed: {
-            datePosted() {
-                return this.text + ' ' + this.model.created_date;
+            datePosted: function () {
+                return `${this.text} ${this.model.created_date}`;
             },
-            altText() {
-                return this.user.name + "'s avatar";
+            altText: function () {
+                return `${this.user.name}'s avatar`;
             }
         }
     }
 </script>
-
-<style scoped>
-
-</style>

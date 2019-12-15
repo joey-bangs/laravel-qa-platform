@@ -6,6 +6,8 @@ use App\Answer;
 use App\Question;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -49,7 +51,7 @@ class AnswerController extends Controller
      * @param Request $request
      * @param Question $question
      * @param Answer $answer
-     * @return Response
+     * @return JsonResponse|RedirectResponse|Response
      * @throws AuthorizationException
      */
     public function update(Request $request, Question $question, Answer $answer)
@@ -59,6 +61,13 @@ class AnswerController extends Controller
         $answer->update($request->validate([
             'body' => 'required'
         ]));
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'message' => 'Your answer has been updated.',
+                'answer' => $answer
+            ]);
+        }
 
         return redirect()
             ->route('questions.show', $question->slug)
