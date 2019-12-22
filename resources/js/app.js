@@ -40,6 +40,7 @@ Vue.component(
     "accept-answer-control",
     require("./components/AcceptAnswerControl.vue").default
 );
+Vue.component("vote-control", require("./components/VoteControl").default);
 
 /**
  * Load Gates

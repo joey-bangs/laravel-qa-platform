@@ -13,4 +13,8 @@ export default class Answer {
     static accept(id) {
         return axios.post(`/answers/${id}/accept`);
     }
+
+    static vote(id, vote) {
+        return axios.patch(`/vote-for-answer/${id}`, { vote });
+    }
 }

@@ -20,7 +20,8 @@
 
                         <div class="media">
                             <div class="d-flex flex-column vote-controls">
-                                @include('shared._vote_controls', ['model' => $question, 'text' => 'question', 'route_name' => 'vote.question'])
+                                <vote-control :model="{{ $question }}" text="question">
+                                </vote-control>
                             </div>
 
                             <div class="media-body">

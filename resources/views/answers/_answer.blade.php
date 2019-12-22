@@ -1,7 +1,7 @@
 <answer-view :answer="{{ $answer }}" inline-template>
     <div class="media post">
         <div class="d-flex flex-column vote-controls">
-            @include('shared._vote_controls', ['model' => $answer, 'text' => 'answer', 'route_name' => 'vote.answer'])
+            <vote-control :model="{{ $answer }}" text="answer"></vote-control>
         </div>
 
         <form class="media-body" v-if="isEditing" @submit.prevent="updateAnswer">
