@@ -29,8 +29,10 @@
     @method('PATCH')
     <input type="number" name="vote" value="-1" hidden>
 </form>
+@if($model instanceof \App\Question)
+    <favourite-question-control :question="{{ $model }}"></favourite-question-control>
+@endif
 
-@includeWhen($model instanceof \App\Question, 'shared._favourite-question-control', ['question' => $model])
-
-@includeWhen($model instanceof \App\Answer, 'shared._accepted-answer-control', ['answer' => $model])
-
+@if($model instanceof \App\Answer)
+    <accept-answer-control :answer="{{ $model }}"></accept-answer-control>
+@endif

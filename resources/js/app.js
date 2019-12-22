@@ -4,17 +4,18 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+import Gate from "./gates/gate";
 
-window.Vue = require('vue');
+require("./bootstrap");
 
+window.Vue = require("vue");
 
 /**
  * Add VueIziToast for notifications
  */
-import VueIziToast from 'vue-izitoast';
+import VueIziToast from "vue-izitoast";
 
-import 'izitoast/dist/css/iziToast.css';
+import "izitoast/dist/css/iziToast.css";
 
 Vue.use(VueIziToast);
 
@@ -29,9 +30,21 @@ Vue.use(VueIziToast);
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('user-info', require('./components/UserInfo.vue').default);
-Vue.component('answer-view', require('./components/AnswerView.vue').default);
-Vue.component('favourite-question-control', require('./components/FavouriteQuestionControl.vue').default);
+Vue.component("user-info", require("./components/UserInfo.vue").default);
+Vue.component("answer-view", require("./components/AnswerView.vue").default);
+Vue.component(
+    "favourite-question-control",
+    require("./components/FavouriteQuestionControl.vue").default
+);
+Vue.component(
+    "accept-answer-control",
+    require("./components/AcceptAnswerControl.vue").default
+);
+
+/**
+ * Load Gates
+ */
+Vue.prototype.$gate = new Gate(window.authState);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -40,5 +53,5 @@ Vue.component('favourite-question-control', require('./components/FavouriteQuest
  */
 
 const app = new Vue({
-    el: '#app',
+    el: "#app"
 });

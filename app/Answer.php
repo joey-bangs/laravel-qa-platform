@@ -24,7 +24,7 @@ class Answer extends Model
      * @var array
      */
     protected $appends = [
-        'created_date', 'body_html'
+        'created_date', 'body_html', 'status', 'is_best'
     ];
 
     public static function boot()
@@ -67,7 +67,7 @@ class Answer extends Model
 
     private function isBest(): bool
     {
-        return $this->id === (int) $this->question->best_answer_id;
+        return $this->id === (int)$this->question->best_answer_id;
     }
 
     public function getStatusAttribute(): string
