@@ -1,4 +1,9 @@
 export default class Question {
+
+    static favour(user, question) {
+        return true;
+    }
+
     static update(user, question) {
         return user.id === question.user_id;
     }

@@ -11,6 +11,9 @@
 </template>
 
 <script>
+import Auth from "../services/auth";
+import Question from "../services/question";
+
 export default {
     name: "FavouriteQuestionControl",
     props: {
@@ -21,7 +24,7 @@ export default {
     },
     data: function() {
         return {
-            isLoggedIn: true,
+            isLoggedIn: Auth.isLoggedIn(),
             isFavoured: this.question.is_favoured,
             favouritesCount: this.question.favourites_count
         };
@@ -37,23 +40,23 @@ export default {
             }
 
             try {
-                const response = await axios.patch(this.endpoint);
+                const response = await Question.toggleFavourite(
+                    this.question.id
+                );
 
-                const { question } = response.data;
-
-                this.isFavoured = question.is_favoured;
-                this.favouritesCount = question.favourites_count;
+                this.updateDataState(response.data);
             } catch (error) {
                 this.$toast.error(error.response.data.message, "Error", {
                     timeout: 3000
                 });
             }
+        },
+        updateDataState: function({ question }) {
+            this.isFavoured = question.is_favoured;
+            this.favouritesCount = question.favourites_count;
         }
     },
     computed: {
-        endpoint: function() {
-            return `/questions/${this.question.id}/toggle-favourite`;
-        },
         favouredStyleClassesObject: function() {
             return {
                 off: !this.isLoggedIn,

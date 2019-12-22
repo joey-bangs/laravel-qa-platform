@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import Answer from "../services/answer";
+
 export default {
     name: "AcceptAnswerControl",
     props: {
@@ -40,7 +42,7 @@ export default {
     methods: {
         markAsAccepted: async function() {
             try {
-                const response = await axios.post(this.endpoint);
+                const response = await Answer.accept(this.id);
 
                 const { id, status, is_best } = response.data.answer;
 
@@ -55,9 +57,6 @@ export default {
         }
     },
     computed: {
-        endpoint: function() {
-            return `/answers/${this.id}/accept`;
-        },
         canAcceptAnswer: function() {
             return this.$gate.allow("accept", "answer", this.answer);
         }

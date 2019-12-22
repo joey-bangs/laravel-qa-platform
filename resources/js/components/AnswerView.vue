@@ -1,4 +1,6 @@
 <script>
+import Answer from "../services/answer";
+
 export default {
     name: "AnswerView",
     props: {
@@ -25,7 +27,9 @@ export default {
         },
         updateAnswer: async function() {
             try {
-                const response = await axios.patch(this.endpoint, {
+                const { questionId, id } = this.slimAnswer;
+
+                const response = await Answer.update(questionId, id, {
                     body: this.bodyFormValue
                 });
 
@@ -70,8 +74,11 @@ export default {
                         "<button><b>YES</b></button>",
                         async (instance, toast) => {
                             try {
-                                const response = await axios.delete(
-                                    this.endpoint
+                                const { questionId, id } = this.slimAnswer;
+
+                                const response = await Answer.delete(
+                                    questionId,
+                                    id
                                 );
 
                                 $(this.$el).fadeOut(500, () =>
@@ -118,9 +125,6 @@ export default {
         }
     },
     computed: {
-        endpoint: function() {
-            return `/questions/${this.slimAnswer.questionId}/answers/${this.slimAnswer.id}`;
-        },
         isFieldValid: function() {
             return this.bodyFormValue.trim().length > 0;
         },

@@ -1852,6 +1852,7 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _services_answer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/answer */ "./resources/js/services/answer.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -1881,6 +1882,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AcceptAnswerControl",
   props: {
@@ -1909,7 +1911,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios.post(this.endpoint);
+                return _services_answer__WEBPACK_IMPORTED_MODULE_1__["default"].accept(this.id);
 
               case 3:
                 response = _context.sent;
@@ -1943,9 +1945,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }()
   },
   computed: {
-    endpoint: function endpoint() {
-      return "/answers/".concat(this.id, "/accept");
-    },
     canAcceptAnswer: function canAcceptAnswer() {
       return this.$gate.allow("accept", "answer", this.answer);
     }
@@ -1965,11 +1964,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _services_answer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/answer */ "./resources/js/services/answer.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AnswerView",
@@ -1999,18 +2000,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _updateAnswer = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response, answer;
+        var _this$slimAnswer, questionId, id, response, answer;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                _context.next = 3;
-                return axios.patch(this.endpoint, {
+                _this$slimAnswer = this.slimAnswer, questionId = _this$slimAnswer.questionId, id = _this$slimAnswer.id;
+                _context.next = 4;
+                return _services_answer__WEBPACK_IMPORTED_MODULE_1__["default"].update(questionId, id, {
                   body: this.bodyFormValue
                 });
 
-              case 3:
+              case 4:
                 response = _context.sent;
                 answer = response.data.answer;
                 this.slimAnswer = {
@@ -2024,23 +2027,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.$toast.success(response.data.message, "Success", {
                   timeout: 3000
                 });
-                _context.next = 15;
+                _context.next = 16;
                 break;
 
-              case 11:
-                _context.prev = 11;
+              case 12:
+                _context.prev = 12;
                 _context.t0 = _context["catch"](0);
                 this.bodyFormValue = this.slimAnswer.body;
                 this.$toast.error(_context.t0.response.data.message, "Error", {
                   timeout: 3000
                 });
 
-              case 15:
+              case 16:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 11]]);
+        }, _callee, this, [[0, 12]]);
       }));
 
       function updateAnswer() {
@@ -2077,44 +2080,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     var _ref = _asyncToGenerator(
                     /*#__PURE__*/
                     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(instance, toast) {
-                      var response;
+                      var _this$slimAnswer2, questionId, id, response;
+
                       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
                         while (1) {
                           switch (_context2.prev = _context2.next) {
                             case 0:
                               _context2.prev = 0;
-                              _context2.next = 3;
-                              return axios["delete"](_this.endpoint);
+                              _this$slimAnswer2 = _this.slimAnswer, questionId = _this$slimAnswer2.questionId, id = _this$slimAnswer2.id;
+                              _context2.next = 4;
+                              return _services_answer__WEBPACK_IMPORTED_MODULE_1__["default"]["delete"](questionId, id);
 
-                            case 3:
+                            case 4:
                               response = _context2.sent;
                               $(_this.$el).fadeOut(500, function () {
                                 return _this.$toast.success(response.data.message, "Success", {
                                   timeout: 3000
                                 });
                               });
-                              _context2.next = 10;
+                              _context2.next = 11;
                               break;
 
-                            case 7:
-                              _context2.prev = 7;
+                            case 8:
+                              _context2.prev = 8;
                               _context2.t0 = _context2["catch"](0);
 
                               _this.$toast.error(_context2.t0.response.data.message, "Error", {
                                 timeout: 3000
                               });
 
-                            case 10:
+                            case 11:
                               instance.hide({
                                 transitionOut: "fadeOut"
                               }, toast, "button");
 
-                            case 11:
+                            case 12:
                             case "end":
                               return _context2.stop();
                           }
                         }
-                      }, _callee2, null, [[0, 7]]);
+                      }, _callee2, null, [[0, 8]]);
                     }));
 
                     return function (_x, _x2) {
@@ -2149,9 +2154,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }()
   },
   computed: {
-    endpoint: function endpoint() {
-      return "/questions/".concat(this.slimAnswer.questionId, "/answers/").concat(this.slimAnswer.id);
-    },
     isFieldValid: function isFieldValid() {
       return this.bodyFormValue.trim().length > 0;
     },
@@ -2176,6 +2178,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _services_auth__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/auth */ "./resources/js/services/auth.js");
+/* harmony import */ var _services_question__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/question */ "./resources/js/services/question.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2194,6 +2198,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FavouriteQuestionControl",
   props: {
@@ -2204,7 +2210,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      isLoggedIn: true,
+      isLoggedIn: _services_auth__WEBPACK_IMPORTED_MODULE_1__["default"].isLoggedIn(),
       isFavoured: this.question.is_favoured,
       favouritesCount: this.question.favourites_count
     };
@@ -2214,7 +2220,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _toggleFavour = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response, question;
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -2233,29 +2239,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 3:
                 _context.prev = 3;
                 _context.next = 6;
-                return axios.patch(this.endpoint);
+                return _services_question__WEBPACK_IMPORTED_MODULE_2__["default"].toggleFavourite(this.question.id);
 
               case 6:
                 response = _context.sent;
-                question = response.data.question;
-                this.isFavoured = question.is_favoured;
-                this.favouritesCount = question.favourites_count;
-                _context.next = 15;
+                this.updateDataState(response.data);
+                _context.next = 13;
                 break;
 
-              case 12:
-                _context.prev = 12;
+              case 10:
+                _context.prev = 10;
                 _context.t0 = _context["catch"](3);
                 this.$toast.error(_context.t0.response.data.message, "Error", {
                   timeout: 3000
                 });
 
-              case 15:
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[3, 12]]);
+        }, _callee, this, [[3, 10]]);
       }));
 
       function toggleFavour() {
@@ -2263,12 +2267,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return toggleFavour;
-    }()
+    }(),
+    updateDataState: function updateDataState(_ref) {
+      var question = _ref.question;
+      this.isFavoured = question.is_favoured;
+      this.favouritesCount = question.favourites_count;
+    }
   },
   computed: {
-    endpoint: function endpoint() {
-      return "/questions/".concat(this.question.id, "/toggle-favourite");
-    },
     favouredStyleClassesObject: function favouredStyleClassesObject() {
       return {
         off: !this.isLoggedIn,
@@ -51786,6 +51792,11 @@ function () {
   }
 
   _createClass(Question, null, [{
+    key: "favour",
+    value: function favour(user, question) {
+      return true;
+    }
+  }, {
     key: "update",
     value: function update(user, question) {
       return user.id === question.user_id;
@@ -51796,6 +51807,132 @@ function () {
       var isAnswered = question.answers_count > 0;
       var belongsToUser = user.id === question.user_id;
       return belongsToUser && !isAnswered;
+    }
+  }]);
+
+  return Question;
+}();
+
+
+
+/***/ }),
+
+/***/ "./resources/js/services/answer.js":
+/*!*****************************************!*\
+  !*** ./resources/js/services/answer.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Answer; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Answer =
+/*#__PURE__*/
+function () {
+  function Answer() {
+    _classCallCheck(this, Answer);
+  }
+
+  _createClass(Answer, null, [{
+    key: "delete",
+    value: function _delete(questionId, answerId) {
+      return axios["delete"]("/questions/".concat(questionId, "/answers/").concat(answerId));
+    }
+  }, {
+    key: "update",
+    value: function update(questionId, answerId, data) {
+      return axios.patch("/questions/".concat(questionId, "/answers/").concat(answerId), data);
+    }
+  }, {
+    key: "accept",
+    value: function accept(id) {
+      return axios.post("/answers/".concat(id, "/accept"));
+    }
+  }]);
+
+  return Answer;
+}();
+
+
+
+/***/ }),
+
+/***/ "./resources/js/services/auth.js":
+/*!***************************************!*\
+  !*** ./resources/js/services/auth.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Auth; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Auth =
+/*#__PURE__*/
+function () {
+  function Auth() {
+    _classCallCheck(this, Auth);
+  }
+
+  _createClass(Auth, null, [{
+    key: "currentUser",
+    value: function currentUser() {
+      return window.authState.user || {};
+    }
+  }, {
+    key: "isLoggedIn",
+    value: function isLoggedIn() {
+      return window.authState.isLoggedIn;
+    }
+  }]);
+
+  return Auth;
+}();
+
+
+
+/***/ }),
+
+/***/ "./resources/js/services/question.js":
+/*!*******************************************!*\
+  !*** ./resources/js/services/question.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Question; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Question =
+/*#__PURE__*/
+function () {
+  function Question() {
+    _classCallCheck(this, Question);
+  }
+
+  _createClass(Question, null, [{
+    key: "toggleFavourite",
+    value: function toggleFavourite(id) {
+      return axios.patch("/questions/".concat(id, "/toggle-favourite"));
     }
   }]);
 
