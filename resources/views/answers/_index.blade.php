@@ -13,7 +13,9 @@
 
                     @include('layouts._alerts')
 
-                    @each('answers._answer', $question->answers, 'answer')
+                    @foreach($question->answers as $answer)
+                        <answer-view :answer="{{$answer}}"></answer-view>
+                    @endforeach
                 </div>
             </div>
         </div>

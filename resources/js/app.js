@@ -32,14 +32,6 @@ Vue.use(VueIziToast);
 
 Vue.component("user-info", require("./components/UserInfo.vue").default);
 Vue.component("answer-view", require("./components/AnswerView.vue").default);
-Vue.component(
-    "favourite-question-control",
-    require("./components/FavouriteQuestionControl.vue").default
-);
-Vue.component(
-    "accept-answer-control",
-    require("./components/AcceptAnswerControl.vue").default
-);
 Vue.component("vote-control", require("./components/VoteControl").default);
 
 /**

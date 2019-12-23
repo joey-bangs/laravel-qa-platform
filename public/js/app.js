@@ -1965,11 +1965,88 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _services_answer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/answer */ "./resources/js/services/answer.js");
+/* harmony import */ var _VoteControl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./VoteControl */ "./resources/js/components/VoteControl.vue");
+/* harmony import */ var _UserInfo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./UserInfo */ "./resources/js/components/UserInfo.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1980,15 +2057,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       required: true
     }
   },
+  components: {
+    VoteControl: _VoteControl__WEBPACK_IMPORTED_MODULE_2__["default"],
+    UserInfo: _UserInfo__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
   data: function data() {
     return {
       isEditing: false,
-      slimAnswer: {
-        id: this.answer.id,
-        questionId: this.answer.question_id,
-        bodyHtml: this.answer.body_html,
-        body: this.answer.body
-      },
+      id: this.answer.id,
+      questionId: this.answer.question_id,
+      bodyHtml: this.answer.body_html,
+      body: this.answer.body,
       bodyFormValue: this.answer.body
     };
   },
@@ -2000,50 +2079,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _updateAnswer = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _this$slimAnswer, questionId, id, response, answer;
-
+        var response, answer;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                _this$slimAnswer = this.slimAnswer, questionId = _this$slimAnswer.questionId, id = _this$slimAnswer.id;
-                _context.next = 4;
-                return _services_answer__WEBPACK_IMPORTED_MODULE_1__["default"].update(questionId, id, {
+                _context.next = 3;
+                return _services_answer__WEBPACK_IMPORTED_MODULE_1__["default"].update(this.questionId, this.id, {
                   body: this.bodyFormValue
                 });
 
-              case 4:
+              case 3:
                 response = _context.sent;
                 answer = response.data.answer;
-                this.slimAnswer = {
-                  id: answer.id,
-                  questionId: answer.question_id,
-                  bodyHtml: answer.body_html,
-                  body: answer.body
-                };
+                this.id = answer.id;
+                this.questionId = answer.question_id;
+                this.bodyHtml = answer.body_html;
+                this.body = answer.body;
                 this.bodyFormValue = answer.body;
                 this.isEditing = false;
                 this.$toast.success(response.data.message, "Success", {
                   timeout: 3000
                 });
-                _context.next = 16;
+                _context.next = 18;
                 break;
 
-              case 12:
-                _context.prev = 12;
+              case 14:
+                _context.prev = 14;
                 _context.t0 = _context["catch"](0);
-                this.bodyFormValue = this.slimAnswer.body;
+                this.bodyFormValue = this.body;
                 this.$toast.error(_context.t0.response.data.message, "Error", {
                   timeout: 3000
                 });
 
-              case 16:
+              case 18:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 12]]);
+        }, _callee, this, [[0, 14]]);
       }));
 
       function updateAnswer() {
@@ -2053,7 +2128,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return updateAnswer;
     }(),
     cancelUpdateAnswer: function cancelUpdateAnswer() {
-      this.bodyFormValue = this.slimAnswer.body;
+      this.bodyFormValue = this.body;
       this.isEditing = false;
     },
     deleteAnswer: function () {
@@ -2080,46 +2155,44 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     var _ref = _asyncToGenerator(
                     /*#__PURE__*/
                     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(instance, toast) {
-                      var _this$slimAnswer2, questionId, id, response;
-
+                      var response;
                       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
                         while (1) {
                           switch (_context2.prev = _context2.next) {
                             case 0:
                               _context2.prev = 0;
-                              _this$slimAnswer2 = _this.slimAnswer, questionId = _this$slimAnswer2.questionId, id = _this$slimAnswer2.id;
-                              _context2.next = 4;
-                              return _services_answer__WEBPACK_IMPORTED_MODULE_1__["default"]["delete"](questionId, id);
+                              _context2.next = 3;
+                              return _services_answer__WEBPACK_IMPORTED_MODULE_1__["default"]["delete"](_this.questionId, _this.id);
 
-                            case 4:
+                            case 3:
                               response = _context2.sent;
                               $(_this.$el).fadeOut(500, function () {
                                 return _this.$toast.success(response.data.message, "Success", {
                                   timeout: 3000
                                 });
                               });
-                              _context2.next = 11;
+                              _context2.next = 10;
                               break;
 
-                            case 8:
-                              _context2.prev = 8;
+                            case 7:
+                              _context2.prev = 7;
                               _context2.t0 = _context2["catch"](0);
 
                               _this.$toast.error(_context2.t0.response.data.message, "Error", {
                                 timeout: 3000
                               });
 
-                            case 11:
+                            case 10:
                               instance.hide({
                                 transitionOut: "fadeOut"
                               }, toast, "button");
 
-                            case 12:
+                            case 11:
                             case "end":
                               return _context2.stop();
                           }
                         }
-                      }, _callee2, null, [[0, 8]]);
+                      }, _callee2, null, [[0, 7]]);
                     }));
 
                     return function (_x, _x2) {
@@ -2129,13 +2202,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     instance.hide({
                       transitionOut: "fadeOut"
                     }, toast, "button");
-                  }]],
-                  onClosing: function onClosing(instance, toast, closedBy) {
-                    console.info("Closing | closedBy: " + closedBy);
-                  },
-                  onClosed: function onClosed(instance, toast, closedBy) {
-                    console.info("Closed | closedBy: " + closedBy);
-                  }
+                  }]]
                 });
 
               case 1:
@@ -2161,6 +2228,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return {
         "is-invalid": !this.isFieldValid
       };
+    },
+    canUpdateAnswer: function canUpdateAnswer() {
+      return this.$gate.allow("update", "answer", this.answer);
+    },
+    canDeleteAnswer: function canDeleteAnswer() {
+      return this.$gate.allow("delete", "answer", this.answer);
     }
   }
 });
@@ -39273,6 +39346,151 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AnswerView.vue?vue&type=template&id=0aaddaa4&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AnswerView.vue?vue&type=template&id=0aaddaa4& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "media post" }, [
+    _c(
+      "div",
+      { staticClass: "d-flex flex-column vote-controls" },
+      [_c("VoteControl", { attrs: { model: _vm.answer, text: "answer" } })],
+      1
+    ),
+    _vm._v(" "),
+    _vm.isEditing
+      ? _c(
+          "form",
+          {
+            staticClass: "media-body",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.updateAnswer($event)
+              }
+            }
+          },
+          [
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "body" } }, [
+                _vm._v("Edit your answer")
+              ]),
+              _vm._v(" "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.bodyFormValue,
+                    expression: "bodyFormValue"
+                  }
+                ],
+                staticClass: "form-control",
+                class: _vm.fieldClassStyleObject,
+                attrs: { id: "body", cols: "30", rows: "7" },
+                domProps: { value: _vm.bodyFormValue },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.bodyFormValue = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              !_vm.isFieldValid
+                ? _c("div", { staticClass: "invalid-feedback" }, [
+                    _c("strong", [_vm._v("Body is required!")])
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-lg btn-primary",
+                  attrs: { disabled: !_vm.isFieldValid, type: "submit" }
+                },
+                [_vm._v("\n                Update answer\n            ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-lg btn-outline-primary",
+                  attrs: { type: "button" },
+                  on: { click: _vm.cancelUpdateAnswer }
+                },
+                [_vm._v("\n                Cancel\n            ")]
+              )
+            ])
+          ]
+        )
+      : _c("div", { staticClass: "media-body" }, [
+          _c("div", { domProps: { innerHTML: _vm._s(_vm.bodyHtml) } }),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-4" }, [
+              _vm.canUpdateAnswer
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-sm btn-outline-info",
+                      on: { click: _vm.openEditAnswerForm }
+                    },
+                    [_vm._v("\n                    Edit\n                ")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.canDeleteAnswer
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-sm btn-outline-danger",
+                      attrs: { type: "button" },
+                      on: { click: _vm.deleteAnswer }
+                    },
+                    [_vm._v("\n                    Delete\n                ")]
+                  )
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4" }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-md-4" },
+              [
+                _c("UserInfo", {
+                  attrs: { text: "Answered", model: _vm.answer }
+                })
+              ],
+              1
+            )
+          ])
+        ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FavouriteQuestionControl.vue?vue&type=template&id=dc1f69ce&":
 /*!***************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FavouriteQuestionControl.vue?vue&type=template&id=dc1f69ce& ***!
@@ -51606,8 +51824,6 @@ Vue.use(vue_izitoast__WEBPACK_IMPORTED_MODULE_1___default.a);
 
 Vue.component("user-info", __webpack_require__(/*! ./components/UserInfo.vue */ "./resources/js/components/UserInfo.vue")["default"]);
 Vue.component("answer-view", __webpack_require__(/*! ./components/AnswerView.vue */ "./resources/js/components/AnswerView.vue")["default"]);
-Vue.component("favourite-question-control", __webpack_require__(/*! ./components/FavouriteQuestionControl.vue */ "./resources/js/components/FavouriteQuestionControl.vue")["default"]);
-Vue.component("accept-answer-control", __webpack_require__(/*! ./components/AcceptAnswerControl.vue */ "./resources/js/components/AcceptAnswerControl.vue")["default"]);
 Vue.component("vote-control", __webpack_require__(/*! ./components/VoteControl */ "./resources/js/components/VoteControl.vue")["default"]);
 /**
  * Load Gates
@@ -51749,19 +51965,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AnswerView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AnswerView.vue?vue&type=script&lang=js& */ "./resources/js/components/AnswerView.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
+/* harmony import */ var _AnswerView_vue_vue_type_template_id_0aaddaa4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AnswerView.vue?vue&type=template&id=0aaddaa4& */ "./resources/js/components/AnswerView.vue?vue&type=template&id=0aaddaa4&");
+/* harmony import */ var _AnswerView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AnswerView.vue?vue&type=script&lang=js& */ "./resources/js/components/AnswerView.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  _AnswerView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
-  render,
-  staticRenderFns,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AnswerView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AnswerView_vue_vue_type_template_id_0aaddaa4___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AnswerView_vue_vue_type_template_id_0aaddaa4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -51787,6 +52004,24 @@ component.options.__file = "resources/js/components/AnswerView.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AnswerView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./AnswerView.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AnswerView.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AnswerView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/AnswerView.vue?vue&type=template&id=0aaddaa4&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/AnswerView.vue?vue&type=template&id=0aaddaa4& ***!
+  \*******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AnswerView_vue_vue_type_template_id_0aaddaa4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./AnswerView.vue?vue&type=template&id=0aaddaa4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AnswerView.vue?vue&type=template&id=0aaddaa4&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AnswerView_vue_vue_type_template_id_0aaddaa4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AnswerView_vue_vue_type_template_id_0aaddaa4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
