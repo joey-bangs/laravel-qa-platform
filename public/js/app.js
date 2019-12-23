@@ -2166,11 +2166,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                             case 3:
                               response = _context2.sent;
-                              $(_this.$el).fadeOut(500, function () {
-                                return _this.$toast.success(response.data.message, "Success", {
-                                  timeout: 3000
-                                });
-                              });
+
+                              _this.$emit("deleted");
+
                               _context2.next = 10;
                               break;
 
@@ -2267,6 +2265,10 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -2429,7 +2431,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return loadMoreAnswers;
-    }()
+    }(),
+    onDeleted: function onDeleted(index) {
+      this.answers.splice(index, 1);
+      --this.count;
+    }
   },
   computed: {
     title: function title() {
@@ -39720,10 +39726,15 @@ var render = function() {
                 _vm._v(" "),
                 _c("hr"),
                 _vm._v(" "),
-                _vm._l(_vm.answers, function(answer) {
+                _vm._l(_vm.answers, function(answer, index) {
                   return _c("AnswerView", {
                     key: answer.id,
-                    attrs: { answer: answer }
+                    attrs: { answer: answer },
+                    on: {
+                      deleted: function($event) {
+                        return _vm.onDeleted(index)
+                      }
+                    }
                   })
                 })
               ],

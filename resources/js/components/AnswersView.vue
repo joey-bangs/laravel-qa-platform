@@ -9,13 +9,17 @@
 
                     <hr />
                     <AnswerView
-                        v-for="answer of answers"
+                        @deleted="onDeleted(index)"
+                        v-for="(answer, index) in answers"
                         :answer="answer"
                         :key="answer.id"
                     />
                 </div>
                 <div v-if="nextPageUrl" class="mx-auto">
-                    <button @click="loadMoreAnswers" class="btn btn-secondary my-3">
+                    <button
+                        @click="loadMoreAnswers"
+                        class="btn btn-secondary my-3"
+                    >
                         Load more answers
                     </button>
                 </div>
@@ -76,6 +80,10 @@ export default {
                     timeout: 3000
                 });
             }
+        },
+        onDeleted: function(index) {
+            this.answers.splice(index, 1);
+            --this.count;
         }
     },
     computed: {

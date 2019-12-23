@@ -154,13 +154,7 @@ export default {
                                     this.id
                                 );
 
-                                $(this.$el).fadeOut(500, () =>
-                                    this.$toast.success(
-                                        response.data.message,
-                                        "Success",
-                                        { timeout: 3000 }
-                                    )
-                                );
+                                this.$emit("deleted");
                             } catch (error) {
                                 this.$toast.error(
                                     error.response.data.message,
