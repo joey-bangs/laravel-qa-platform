@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        @include('answers._index', ['question' => $question])
+        <answers-view :question="{{ $question }}"></answers-view>
 
         @include('answers._form')
     </div>

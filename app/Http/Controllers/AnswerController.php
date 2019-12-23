@@ -6,20 +6,44 @@ use App\Answer;
 use App\Question;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class AnswerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index']]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param Question $question
+     * @return Factory|JsonResponse|RedirectResponse|Response|View
+     */
+    public function index(Question $question)
+    {
+        $answers = $question->answers()->with('user')->latest()->paginate(3);
+
+        if (request()->wantsJson()) {
+            return response()->json($answers);
+        }
+
+        return back();
+    }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param Question $question
      * @param Request $request
-     * @return Response
+     * @return RedirectResponse|Response
      */
     public function store(Question $question, Request $request)
     {
@@ -35,7 +59,7 @@ class AnswerController extends Controller
      *
      * @param Question $question
      * @param Answer $answer
-     * @return Response
+     * @return Factory|Response|View
      * @throws AuthorizationException
      */
     public function edit(Question $question, Answer $answer)

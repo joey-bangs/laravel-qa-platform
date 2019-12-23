@@ -31,7 +31,7 @@ Vue.use(VueIziToast);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component("user-info", require("./components/UserInfo.vue").default);
-Vue.component("answer-view", require("./components/AnswerView.vue").default);
+Vue.component("answers-view", require("./components/AnswersView.vue").default);
 Vue.component("vote-control", require("./components/VoteControl").default);
 
 /**

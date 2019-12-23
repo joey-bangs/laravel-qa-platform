@@ -17,4 +17,12 @@ export default class Answer {
     static vote(id, vote) {
         return axios.patch(`/vote-for-answer/${id}`, { vote });
     }
+
+    static getAll(questionId) {
+        return axios.get(`/questions/${questionId}/answers`);
+    }
+
+    static getByUrl(url) {
+        return axios.get(url);
+    }
 }

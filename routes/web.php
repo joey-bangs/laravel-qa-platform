@@ -26,7 +26,7 @@ Route::get('/questions/{slug}', 'QuestionController@show')->name('questions.show
 Route::patch('/questions/{question}/toggle-favourite', 'QuestionController@toggleFavourite')
     ->name('questions.toggleFavourite');
 
-Route::resource('questions.answers', 'AnswerController')->except(['index', 'create', 'show']);
+Route::resource('questions.answers', 'AnswerController')->except(['create', 'show']);
 
 Route::post('answers/{answer}/accept', 'AcceptAnswerController')->name('answers.accept');
 
