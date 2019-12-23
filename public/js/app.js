@@ -1852,7 +1852,8 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _services_answer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/answer */ "./resources/js/services/answer.js");
+/* harmony import */ var _events_event_bus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../events/event-bus */ "./resources/js/events/event-bus.js");
+/* harmony import */ var _services_answer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/answer */ "./resources/js/services/answer.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -1883,6 +1884,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AcceptAnswerControl",
   props: {
@@ -1890,6 +1892,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       type: Object,
       required: true
     }
+  },
+  created: function created() {
+    var _this = this;
+
+    _events_event_bus__WEBPACK_IMPORTED_MODULE_1__["eventBus"].$on("accepted", function (id) {
+      if (_this.id !== id) {
+        _this.status = "";
+      }
+    });
   },
   data: function data() {
     return {
@@ -1911,7 +1922,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return _services_answer__WEBPACK_IMPORTED_MODULE_1__["default"].accept(this.id);
+                return _services_answer__WEBPACK_IMPORTED_MODULE_2__["default"].accept(this.id);
 
               case 3:
                 response = _context.sent;
@@ -1919,22 +1930,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.id = id;
                 this.status = status;
                 this.isBest = is_best;
-                _context.next = 13;
+                _events_event_bus__WEBPACK_IMPORTED_MODULE_1__["eventBus"].$emit("accepted", this.id);
+                _context.next = 14;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 11:
+                _context.prev = 11;
                 _context.t0 = _context["catch"](0);
                 this.$toast.error(_context.t0.response.data.message, "Error", {
                   timeout: 3000
                 });
 
-              case 13:
+              case 14:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 10]]);
+        }, _callee, this, [[0, 11]]);
       }));
 
       function markAsAccepted() {
@@ -52576,6 +52588,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VoteControl_vue_vue_type_template_id_5e8aa878___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/events/event-bus.js":
+/*!******************************************!*\
+  !*** ./resources/js/events/event-bus.js ***!
+  \******************************************/
+/*! exports provided: eventBus */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "eventBus", function() { return eventBus; });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+
+var eventBus = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
 
 /***/ }),
 

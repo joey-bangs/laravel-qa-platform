@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import { eventBus } from "../events/event-bus";
+
 import Answer from "../services/answer";
 
 export default {
@@ -31,6 +33,13 @@ export default {
             type: Object,
             required: true
         }
+    },
+    created: function() {
+        eventBus.$on("accepted", id => {
+            if (this.id !== id) {
+                this.status = "";
+            }
+        });
     },
     data: function() {
         return {
@@ -49,6 +58,8 @@ export default {
                 this.id = id;
                 this.status = status;
                 this.isBest = is_best;
+
+                eventBus.$emit("accepted", this.id);
             } catch (error) {
                 this.$toast.error(error.response.data.message, "Error", {
                     timeout: 3000
