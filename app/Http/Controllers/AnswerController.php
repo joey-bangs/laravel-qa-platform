@@ -43,13 +43,20 @@ class AnswerController extends Controller
      *
      * @param Question $question
      * @param Request $request
-     * @return RedirectResponse|Response
+     * @return JsonResponse|RedirectResponse|Response
      */
     public function store(Question $question, Request $request)
     {
-        $question->answers()->create(
+        $answer = $question->answers()->create(
             $request->validate(['body' => 'required']) + ['user_id' => Auth::id()]
         );
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'message' => 'Your answer has been submitted successfully.',
+                'answer' => $answer->load('user')
+            ]);
+        }
 
         return back()->with('success', 'Your answer has been submitted successfully.');
     }

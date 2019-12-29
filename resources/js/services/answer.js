@@ -25,4 +25,8 @@ export default class Answer {
     static getByUrl(url) {
         return axios.get(url);
     }
+
+    static store(questionId, body) {
+        return axios.post(`/questions/${questionId}/answers`, { body });
+    }
 }

@@ -37,7 +37,5 @@
         </div>
 
         <answers-view :question="{{ $question }}"></answers-view>
-
-        @include('answers._form')
     </div>
 @endsection

@@ -84,7 +84,7 @@ export default {
             return this.textCopy === "question";
         },
         votesCount: function() {
-            return this.modelCopy.votes_count;
+            return this.modelCopy.votes_count || 0;
         },
         unAuthenticatedClass: function() {
             return !this.isLoggedIn ? "off" : "";
