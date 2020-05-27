@@ -17,7 +17,7 @@ class Question extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'body', 'votes_count'
+        'title', 'body', 'votes_count', 'file_url'
     ];
 
     /**
@@ -114,5 +114,4 @@ class Question extends Model
             $this->favourites()->attach(Auth::id());
         }
     }
-
 }
