@@ -12,8 +12,12 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 
+use App\Traits\FileUploadable;
+
 class QuestionController extends Controller
 {
+    use FileUploadable;
+
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
@@ -49,7 +53,16 @@ class QuestionController extends Controller
      */
     public function store(StoreQuestion $request)
     {
-        $request->user()->questions()->create($request->validated());
+        $new_question_data = $request->validated();
+
+        $file_url = $this->handleUpload($request, 'questions');
+
+        if ($file_url) {
+            $new_file_url = str_replace('public/', '', $file_url);
+            $new_question_data['file_url'] = $new_file_url;
+        }
+
+        $request->user()->questions()->create($new_question_data);
 
         return redirect()
             ->route('questions.index')
@@ -95,7 +108,17 @@ class QuestionController extends Controller
     {
         $this->authorize('update', $question);
 
-        $question->update($request->validated());
+        $update_question_data = $request->validated();
+
+        $file_url = $this->handleUpload($request, 'questions');
+
+        if ($file_url) {
+            $new_file_url = str_replace('public/', '', $file_url);
+            $update_question_data['file_url'] = $new_file_url;
+        }
+
+
+        $question->update($update_question_data);
 
         return redirect()
             ->route('questions.index')

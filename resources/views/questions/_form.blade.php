@@ -38,6 +38,15 @@
     @endif
 </div>
 <div class="form-group">
+    <label for="file">Attach a file</label>
+    <input id="file" class="form-control {{ $errors->has('file') ? 'is-invalid' : '' }}" type="file" name="file">
+    @if ($errors->has('body'))
+        <div class="invalid-feedback">
+            <strong>{{ $errors->first('file') }}</strong>
+        </div>
+    @endif
+</div>
+<div class="form-group">
     <button type="submit" class="btn btn-lg btn-outline-success">
         {{ $buttonText }}
     </button>

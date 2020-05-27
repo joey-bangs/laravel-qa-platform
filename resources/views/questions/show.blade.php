@@ -9,6 +9,9 @@
                         <div class="card-title">
                             <div class="d-flex justify-content-between">
                                 <h3>{{ $question->title }}</h3>
+                                @if ($question->file_url)
+                                    <a href="{{ asset('storage/'.$question->file_url) }}">Download file</a>
+                                @endif
                                 <a href="{{ route('questions.index') }}"
                                    class="btn btn-outline-secondary">
                                     Go back to questions
