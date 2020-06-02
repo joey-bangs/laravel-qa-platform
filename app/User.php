@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'role'
     ];
 
     /**
@@ -26,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $appends = [
-        'avatar', 'url', 'is_logged_in'
+        'avatar', 'url', 'is_logged_in', 'is_counsellor', 'is_student'
     ];
 
     /**
@@ -103,7 +103,7 @@ class User extends Authenticatable
         $model->load('votes');
 
         $model->update([
-            'votes_count' => (int)$model->votes()->pluck('vote')->sum()
+            'votes_count' => (int) $model->votes()->pluck('vote')->sum()
         ]);
     }
 
@@ -117,5 +117,15 @@ class User extends Authenticatable
     public function voteAnswers()
     {
         return $this->morphedByMany('App\Answer', 'votable')->withTimestamps();
+    }
+
+    public function getIsCounsellorAttribute(): bool
+    {
+        return $this->role === 'COUNSELLOR';
+    }
+
+    public function getIsStudentAttribute(): bool
+    {
+        return $this->role === 'STUDENT';
     }
 }

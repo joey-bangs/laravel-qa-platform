@@ -4,7 +4,7 @@ export default class Answer {
     }
 
     static accept(user, answer) {
-        return user.id === answer.question.user_id;
+        return user.is_counsellor;
     }
 
     static delete(user, answer) {

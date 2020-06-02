@@ -20,7 +20,7 @@ class AnswerPolicy
      */
     public function update(User $user, Answer $answer)
     {
-        return $user->id === (int)$answer->user_id;
+        return $user->id === (int) $answer->user_id;
     }
 
     /**
@@ -32,7 +32,7 @@ class AnswerPolicy
      */
     public function accept(User $user, Answer $answer)
     {
-        return $user->id === (int)$answer->question->user_id;
+        return $user->is_counsellor;
     }
 
     /**
@@ -44,6 +44,6 @@ class AnswerPolicy
      */
     public function delete(User $user, Answer $answer)
     {
-        return $user->id === (int)$answer->user_id;
+        return $user->id === (int) $answer->user_id;
     }
 }

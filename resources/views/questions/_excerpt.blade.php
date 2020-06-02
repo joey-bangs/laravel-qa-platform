@@ -43,9 +43,11 @@
         </div>
 
         <p class="lead">
-            <a href="{{ $question->user->url }}">
-                {{ $question->user->name }}
-            </a>
+            @if (Auth::user()->is_counsellor || $question->user_id === Auth::id())
+                <a href="{{ $question->user->url }}">
+                    {{ $question->user->name }}
+                </a>
+            @endif
             <small class="text-mute">
                 {{ $question->created_at->diffForHumans() }}
             </small>
