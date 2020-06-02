@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'role'
     ];
 
     /**
@@ -103,7 +103,7 @@ class User extends Authenticatable
         $model->load('votes');
 
         $model->update([
-            'votes_count' => (int)$model->votes()->pluck('vote')->sum()
+            'votes_count' => (int) $model->votes()->pluck('vote')->sum()
         ]);
     }
 
