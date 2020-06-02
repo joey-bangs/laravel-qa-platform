@@ -26,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $appends = [
-        'avatar', 'url', 'is_logged_in'
+        'avatar', 'url', 'is_logged_in', 'is_counsellor', 'is_student'
     ];
 
     /**
@@ -117,5 +117,15 @@ class User extends Authenticatable
     public function voteAnswers()
     {
         return $this->morphedByMany('App\Answer', 'votable')->withTimestamps();
+    }
+
+    public function getIsCounsellorAttribute(): bool
+    {
+        return $this->role === 'COUNSELLOR';
+    }
+
+    public function getIsStudentAttribute(): bool
+    {
+        return $this->role === 'STUDENT';
     }
 }

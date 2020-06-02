@@ -53066,7 +53066,7 @@ function () {
   }, {
     key: "accept",
     value: function accept(user, answer) {
-      return user.id === answer.question.user_id;
+      return user.is_counsellor;
     }
   }, {
     key: "delete",
@@ -53306,8 +53306,8 @@ function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/kbee/Documents/Projects/Learning/Laravel/laravel-breezy-qa/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/kbee/Documents/Projects/Learning/Laravel/laravel-breezy-qa/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/kbee/Documents/Projects/Learning/joey/laravel-qa-platform/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/kbee/Documents/Projects/Learning/joey/laravel-qa-platform/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
