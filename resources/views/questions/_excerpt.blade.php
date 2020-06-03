@@ -43,7 +43,7 @@
         </div>
 
         <p class="lead">
-            @if (Auth::user()->is_counsellor || $question->user_id === Auth::id())
+            @if ((Auth::user() && Auth::user()->is_counsellor) || $question->user_id === Auth::id())
                 <a href="{{ $question->user->url }}">
                     {{ $question->user->name }}
                 </a>
