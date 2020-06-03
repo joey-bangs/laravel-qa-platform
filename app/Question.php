@@ -4,9 +4,11 @@ namespace App;
 
 use App\Traits\Votable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Parsedown;
+use Carbon\Carbon;
 
 class Question extends Model
 {
@@ -113,5 +115,36 @@ class Question extends Model
         } else {
             $this->favourites()->attach(Auth::id());
         }
+    }
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param  Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeMostRecent(Builder $query, string $option)
+    {
+        if ($option === 'month') {
+            return $query->whereMonth('created_at', date('m'));
+        } else if ($option === 'week') {
+            return $query->whereBetween('created_at', [
+                Carbon::now()->startOfWeek(),
+                Carbon::now()->endOfWeek()
+            ]);
+        } else {
+            return $query->whereDay('created_at', '=', date('d'));
+        }
+    }
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param  Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeLastSixWeeks(Builder $query)
+    {
+        return $query->where('created_at', '>', Carbon::now()->subDays(42));
     }
 }

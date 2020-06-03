@@ -17,7 +17,20 @@
                     You are logged in!
                 </div>
             </div>
+            @if (Auth::user()->is_counsellor)
+                <div class="col-md-12 my-5">
+                    {!! $line_chart->container() !!}
+                </div>
+                <div class="col-md-12 my-5">
+                    {!! $bar_chart->container() !!}
+                </div>
+            @endif
         </div>
     </div>
 </div>
+
+  @push('charts')
+    {!! $line_chart->script() !!}
+    {!! $bar_chart->script() !!}
+  @endpush
 @endsection
