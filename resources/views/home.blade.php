@@ -26,7 +26,7 @@
                     </p>
                 </div>
             </div>
-            @if (Auth::user()->is_counsellor)
+            @if (Auth::user() && Auth::user()->is_counsellor)
                 <div class="col-md-12 my-5">
                     {!! $line_chart->container() !!}
                 </div>
@@ -37,7 +37,7 @@
         </div>
     </div>
 </div>
-@if (Auth::user()->is_counsellor)
+@if (Auth::user() && Auth::user()->is_counsellor)
     @push('charts')
         {!! $line_chart->script() !!}
         {!! $bar_chart->script() !!}
